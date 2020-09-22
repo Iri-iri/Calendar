@@ -1,20 +1,20 @@
 const date = new Date();
 
+const displayCalendar = () => {
+date.setDate(1);
+
 const days = document.querySelector(".days");
 
-const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-const prevLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate(); // последний день месяца
 
-// console.log(prevLastDay)
+const prevLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate(); // последний день предыдущего месяца
 
 const firstDayIndex = date.getDay();
-// console.log(firstDayIndex)
 
-const lastDayIndex = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDay();
-console.log(lastDayIndex);
-const nextDays = 7 - lastDayIndex;
 
-// console.log(lastDay);
+const lastDayIndex = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDay(); // индекс последнего дня месяца
+
+const nextDays = 7 - lastDayIndex-1;
 
 const months = [
   "January",
@@ -31,10 +31,8 @@ const months = [
   "December",
 ];
 
-let newDate = document.querySelector(".date p");
+let newDate = document.querySelector("#date");
 newDate.innerHTML = `${months[date.getMonth()]} ${date.getFullYear()}`;
-
-// console.log(document.querySelector(".date p"))
 
 let newDays = "";
 
@@ -43,7 +41,6 @@ for (let j = firstDayIndex; j > 0; j--) {
 }
 
 for (let i = 1; i <= lastDay; i++) {
-
   newDays += `<div>${i}</div>`
 }
 
@@ -52,11 +49,16 @@ for (let k = 1; k <= nextDays; k++) {
   days.innerHTML = newDays;
 }
 
+}
+
 document.querySelector("#prev").addEventListener("click", () => {
   date.setMonth(date.getMonth() - 1);
+  displayCalendar();
 });
 
-// document.querySelector("#next").addEventListener("click", () => {
-//   date.setMonth(date.getMonth() + 1);
-// });
+document.querySelector("#next").addEventListener("click", () => {
+  date.setMonth(date.getMonth() + 1);
+  displayCalendar();
+});
 
+displayCalendar();
